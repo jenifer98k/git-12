@@ -11,7 +11,7 @@ import userRouter from "./routes/userRoutes.js";
 const app = express();
 const port = process.env.PORT || 4000;
 connectDB() 
-const allowedOrigins =  ['http://localhost:5173']
+const allowedOrigins = [process.env.FRONTEND_URL];
 // Middleware
 app.use(express.json());// all req wil be passed in json format
 app.use(cookieParser());
