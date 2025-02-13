@@ -11,11 +11,26 @@ import userRouter from "./routes/userRoutes.js";
 const app = express();
 const port = process.env.PORT || 4000;
 connectDB() 
-const allowedOrigins =  ['http://localhost:5173']
+import cors from "cors";
+
+const allowedOrigins = [
+  "http://localhost:5173", // Local frontend (for testing)
+  "https://git-12-client.vercel.app", // Deployed frontend
+];
+
+
+
 // Middleware
 app.use(express.json());// all req wil be passed in json format
 app.use(cookieParser());
-app.use(cors({ origin: allowedOrigins , credentials: true }));// to send cookies in resposnes from express
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // Allow cookies
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow headers
+  })
+);
 
 // API Endpoints 
 app.get("/", (req, res) => {
